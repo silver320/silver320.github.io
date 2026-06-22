@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sylvester Ikechukwu Egwu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0f;
+  --ink2:#3a3a3a;
+  --ink3:#888;
+  --rule:#e0e0e0;
+  --paper:#fafaf8;
+  --accent:#1a1a2e;
+  --gold:#b8976a;
+  --white:#ffffff;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── CURSOR DOT ── */
+.cursor{
+  width:6px;height:6px;
+  background:var(--gold);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;
+  z-index:9999;
+  transition:transform .15s ease;
+  mix-blend-mode:multiply;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  padding:28px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:100;
+  background:rgba(250,250,248,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--rule)}
+.nav-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;
+  font-weight:400;
+  letter-spacing:.04em;
+  color:var(--ink);
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:36px}
+.nav-links a{
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink3);
+  text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 60px 80px;
+  position:relative;
+  border-bottom:1px solid var(--rule);
+}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,8vw,110px);
+  font-weight:300;
+  line-height:.95;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin-bottom:32px;
+}
+.hero-name em{
+  font-style:italic;
+  font-weight:300;
+  color:var(--ink2);
+}
+.hero-desc{
+  max-width:520px;
+  font-size:16px;
+  font-weight:300;
+  line-height:1.75;
+  color:var(--ink2);
+  margin-bottom:48px;
+  border-left:2px solid var(--gold);
+  padding-left:20px;
+}
+.hero-cta{
+  display:flex;gap:20px;align-items:center;flex-wrap:wrap;
+}
+.btn-primary{
+  padding:14px 32px;
+  background:var(--ink);
+  color:var(--white);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border:none;cursor:pointer;
+  transition:background .2s,transform .15s;
+  display:inline-block;
+}
+.btn-primary:hover{background:var(--accent);transform:translateY(-1px)}
+.btn-ghost{
+  padding:14px 32px;
+  background:transparent;
+  color:var(--ink);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid var(--rule);
+  transition:border-color .2s,transform .15s;
+  display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+
+/* Scroll hint */
+.scroll-hint{
+  position:absolute;right:60px;bottom:80px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);
+}
+.scroll-line{
+  width:1px;height:48px;
+  background:linear-gradient(to bottom,var(--rule),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ── SECTIONS ── */
+section{padding:100px 60px;border-bottom:1px solid var(--rule)}
+.section-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:48px;
+  display:flex;align-items:center;gap:16px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-text h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,48px);
+  font-weight:300;
+  line-height:1.2;
+  margin-bottom:24px;
+  letter-spacing:-.01em;
+}
+.about-text h2 em{font-style:italic;color:var(--ink2)}
+.about-text p{color:var(--ink2);margin-bottom:16px;font-size:15px}
+.about-stats{display:flex;flex-direction:column;gap:24px;padding-top:8px}
+.stat-item{padding:24px 0;border-top:1px solid var(--rule)}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;font-weight:300;
+  color:var(--ink);
+  line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.skill-cell{
+  background:var(--paper);
+  padding:32px 28px;
+  transition:background .2s;
+}
+.skill-cell:hover{background:var(--white)}
+.skill-icon{font-size:24px;margin-bottom:12px}
+.skill-name{
+  font-size:13px;font-weight:500;
+  color:var(--ink);margin-bottom:6px;
+}
+.skill-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+
+/* ── PROJECT ── */
+.project-card{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--rule);
+  overflow:hidden;
+  transition:box-shadow .25s,transform .2s;
+}
+.project-card:hover{
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  transform:translateY(-4px);
+}
+.project-visual{
+  background:linear-gradient(135deg,#0f0f1a 0%,#1a1a2e 40%,#0d1117 100%);
+  padding:48px 40px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:360px;
+  position:relative;
+  overflow:hidden;
+}
+.project-visual::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 50%,rgba(86,156,214,.15) 0%,transparent 60%);
+}
+.pv-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#4ec9b0;
+  position:relative;z-index:1;
+}
+.pv-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:300;
+  color:#ffffff;line-height:1.1;
+  position:relative;z-index:1;
+}
+.pv-orbit{
+  position:absolute;
+  border:1px solid rgba(86,156,214,.2);
+  border-radius:50%;
+  animation:orbit 12s linear infinite;
+}
+.pv-orbit:nth-child(3){width:180px;height:180px;top:20%;right:-40px}
+.pv-orbit:nth-child(4){width:100px;height:100px;top:40%;right:10px;animation-duration:8s;animation-direction:reverse}
+@keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.pv-dot{
+  width:5px;height:5px;
+  background:#569cd6;border-radius:50%;
+  position:absolute;top:-2px;left:50%;
+  box-shadow:0 0 8px #569cd6;
+}
+
+.project-info{
+  padding:48px 40px;
+  background:var(--white);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.pi-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;
+}
+.pi-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:400;
+  color:var(--ink);margin-bottom:16px;line-height:1.2;
+}
+.pi-desc{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:24px}
+.pi-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.pi-tag{
+  font-size:11px;letter-spacing:.06em;
+  padding:4px 12px;
+  border:1px solid var(--rule);
+  color:var(--ink3);
+}
+.pi-links{display:flex;gap:16px}
+
+/* ── CONTACT ── */
+.contact-inner{max-width:600px}
+.contact-inner h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,64px);
+  font-weight:300;line-height:1.1;
+  margin-bottom:24px;letter-spacing:-.01em;
+}
+.contact-inner h2 em{font-style:italic;color:var(--ink2)}
+.contact-inner p{color:var(--ink2);margin-bottom:36px;font-size:15px;max-width:440px}
+.contact-links{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+.contact-link{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid var(--rule);
+  text-decoration:none;
+  color:var(--ink);
+  transition:padding-left .2s;
+}
+.contact-link:hover{padding-left:12px}
+.cl-label{font-size:13px;font-weight:400;letter-spacing:.04em}
+.cl-arrow{color:var(--gold);font-size:18px;transition:transform .2s}
+.contact-link:hover .cl-arrow{transform:translateX(4px)}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;color:var(--ink2);
+}
+.footer-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--ink3);letter-spacing:.06em;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  .hero{padding:0 24px 60px}
+  section{padding:72px 24px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .project-card{grid-template-columns:1fr}
+  .project-visual{min-height:240px}
+  .scroll-hint{display:none}
+  footer{padding:32px 24px}
+  .nav-links{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-name">S. I. Egwu</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">Portfolio — 2026</div>
+  <h1 class="hero-name">
+    Sylvester<br/>
+    <em>Ikechukwu</em><br/>
+    Egwu
+  </h1>
+  <p class="hero-desc">
+    Estate Management student with a curiosity that refuses to stay in one lane —
+    exploring how technology, data, and spatial thinking intersect to solve real-world problems.
+  </p>
+  <div class="hero-cta">
+    <a href="#work" class="btn-primary">View My Work</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2>Bridging property,<br/><em>people & technology</em></h2>
+      <p>I'm a student of Estate Management — a discipline that sits at the intersection of law, economics, built environment, and human behaviour. I believe the future of property and urban development will be shaped by those who can think across disciplines.</p>
+      <p>Outside the lecture hall, I build interactive tools and explore emerging technology. My Quantum Computing Lab is proof that curiosity has no boundaries — an Estate Management student explaining qubits through code.</p>
+      <p>I'm based in Nigeria, with a global outlook and a drive to contribute meaningfully to how we build, manage, and value the spaces we inhabit.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">Est.</div>
+        <div class="stat-label">Management — Core Discipline</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">⚛️</div>
+        <div class="stat-label">Quantum Computing — Self-taught</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">🇳🇬</div>
+        <div class="stat-label">Based in Nigeria</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Curiosity — Unlimited</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills & Interests</div>
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-name">Property Valuation</div>
+      <div class="skill-desc">Understanding how land and buildings are assessed, valued, and managed across different markets.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data & Research</div>
+      <div class="skill-desc">Gathering, interpreting, and presenting data to support decisions in real estate and beyond.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">💻</div>
+      <div class="skill-name">Web Development</div>
+      <div class="skill-desc">Building interactive websites with HTML, CSS, and JavaScript — from concept to deployed product.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⚛️</div>
+      <div class="skill-name">Quantum Computing</div>
+      <div class="skill-desc">Self-taught concepts including qubits, superposition, quantum gates, and circuit simulation.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🗺️</div>
+      <div class="skill-name">Urban Planning</div>
+      <div class="skill-desc">Thinking critically about how cities grow, how land is used, and what makes communities thrive.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">Critical Thinking</div>
+      <div class="skill-desc">Approaching complex problems across disciplines with curiosity, clarity, and independent thought.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Featured Project</div>
+  <div class="project-card reveal">
+    <div class="project-visual">
+      <div class="pv-tag">Interactive Web App · 2026</div>
+      <!-- Orbiting circles decoration -->
+      <div class="pv-orbit"><div class="pv-dot"></div></div>
+      <div class="pv-orbit"><div class="pv-dot"></div></div>
+      <div class="pv-title">Quantum<br/>Computing<br/>Lab</div>
+    </div>
+    <div class="project-info">
+      <div>
+        <div class="pi-label">Web Application</div>
+        <div class="pi-title">An Interactive Guide to Quantum Computing</div>
+        <p class="pi-desc">
+          A fully interactive educational platform that teaches quantum computing to complete beginners — no physics degree needed. Built with a VS Code aesthetic, it includes a live Bloch sphere simulator, drag-and-drop circuit builder, gate explorer with real-time animations, and an 8-question quiz with instant feedback.
+        </p>
+        <div class="pi-tags">
+          <span class="pi-tag">HTML</span>
+          <span class="pi-tag">CSS</span>
+          <span class="pi-tag">JavaScript</span>
+          <span class="pi-tag">Canvas API</span>
+          <span class="pi-tag">Linear Algebra</span>
+          <span class="pi-tag">Quantum Gates</span>
+        </div>
+      </div>
+      <div class="pi-links">
+        <a href="https://yourusername.github.io/quantum-lab" target="_blank" class="btn-primary" style="font-size:11px;padding:12px 24px">Open Live Demo ↗</a>
+        <a href="https://github.com/yourusername/quantum-lab" target="_blank" class="btn-ghost" style="font-size:11px;padding:12px 24px">View on GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-inner reveal">
+    <h2>Let's<br/><em>connect</em></h2>
+    <p>Whether it's about property, technology, a collaboration, or just a good conversation — my inbox is open.</p>
+    <div class="contact-links">
+      <a href="mailto:egwuikechukwu08@gmail.com.com" class="contact-link">
+        <span class="cl-label">egwuikechukwu08@gmail.com.com</span>
+        <span class="cl-arrow">→</span>
+      </a>
+      <a href="https://github.com/silver320" target="_blank" class="contact-link">
+        <span class="cl-label">GitHub — github.com/silver320</span>
+        <span class="cl-arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/sylvesteregwu" target="_blank" class="contact-link">
+        <span class="cl-label">LinkedIn — Sylvester Ikechukwu Egwu</span>
+        <span class="cl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Sylvester Ikechukwu Egwu</div>
+  <div class="footer-copy">© 2026 · Built with curiosity</div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX - 3 + 'px';
+  cursor.style.top = e.clientY - 3 + 'px';
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(3)');
+  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, {threshold: 0.12});
+reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
